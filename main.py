@@ -23,13 +23,18 @@ content2 = """Feel free to contact me if you have any questions or
 st.write(content2)
 
 df = pd.read_csv('data.csv',sep=';')
-titles = df['title']
-col3,col4 = st.columns(2)
+col3,empty_col,col4 = st.columns([1.5,0.5,1.5])
 
 with col3:
-    for i in range(0,len(titles),2):
-        st.header(titles[i])
+    for idx, row in df[0::2].iterrows():
+        st.header(row['title'])
+        st.write(row['description'])
+        st.image("images/"+row['image'])
+        st.write(f"[Source code]({row['url']})")
         
 with col4:
-    for i in range(1,len(titles),2):
-        st.header(titles[i])
+    for idx, row in df[1::2].iterrows():
+        st.header(row['title'])
+        st.write(row['description'])
+        st.image("images/"+row['image'])
+        st.write(f"[Source code]({row['url']})")
